@@ -17,8 +17,9 @@ function City({
       .then((res) => res.json())
       .then((data) => setCities(data));
 
+    // Reset city when state changes
     setSelectedCity("");
-  }, [selectedState, selectedCountry]);
+  }, [selectedCountry, selectedState, setSelectedCity]);
 
   return (
     <select

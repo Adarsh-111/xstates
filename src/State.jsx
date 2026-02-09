@@ -12,8 +12,9 @@ function State({ selectedCountry, selectedState, setSelectedState }) {
       .then((res) => res.json())
       .then((data) => setStates(data));
 
+    // Reset state when country changes
     setSelectedState("");
-  }, [selectedCountry]);
+  }, [selectedCountry, setSelectedState]);
 
   return (
     <select
@@ -24,12 +25,4 @@ function State({ selectedCountry, selectedState, setSelectedState }) {
       <option value="">Select State</option>
 
       {states.map((state) => (
-        <option key={state} value={state}>
-          {state}
-        </option>
-      ))}
-    </select>
-  );
-}
-
-export default State;
+        <opt
