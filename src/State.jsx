@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
 
-function State({ selectedCountry, selectedState, setSelectedState }) {
+export default function State({
+  selectedCountry,
+  selectedState,
+  setSelectedState,
+}) {
   const [states, setStates] = useState([]);
 
   useEffect(() => {
-    if (!selectedCountry) return;
+    if (!selectedCountry) {
+      setStates([]);
+      setSelectedState("");
+      return;
+    }
 
     fetch(
       `https://location-selector.labs.crio.do/country=${selectedCountry}/states`
     )
       .then((res) => res.json())
-      .then((data) => setStates(data));
-
-    // Reset state when country changes
-    setSelectedState("");
+      .then((data) => setStates(data))
+      .catch(() => setStates([]));
   }, [selectedCountry, setSelectedState]);
 
   return (
@@ -23,6 +29,11 @@ function State({ selectedCountry, selectedState, setSelectedState }) {
       disabled={!selectedCountry}
     >
       <option value="">Select State</option>
-
       {states.map((state) => (
-        <opt
+        <option key={state} value={state}>
+          {state}
+        </option>
+      ))}
+    </select>
+  );
+}
